@@ -8,6 +8,7 @@ ARG MODEL_URL='https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/mai
 ARG HF_TOKEN=''
 
 RUN apt update && apt-get -y install git wget \
+    ffmpeg libsm6 libxext6 \
     python3.10 python3.10-venv python3-pip \
     build-essential libgl-dev libglib2.0-0 vim
 RUN ln -s /usr/bin/python3.10 /usr/bin/python
@@ -17,13 +18,21 @@ WORKDIR /app
 
 RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git && \
     cd stable-diffusion-webui && \
-    git checkout 3e0f9a75438fa815429b5530261bcf7d80f3f101
+    git checkout 3e0f9a75438fa815429b5530261bcf7d80f3f101 && \
+    cd extensions && \
+    git clone https://github.com/Mikubill/sd-webui-controlnet.git
 WORKDIR /app/stable-diffusion-webui
 
 ENV MODEL_URL=${MODEL_URL}
 ENV HF_TOKEN=${HF_TOKEN}
 
-RUN pip install tqdm requests
+RUN pip3 install --upgrade pip
+ADD requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
+
+RUN pip install -q opencv-contrib-python
+RUN pip install -q controlnet_aux
+
 ADD download_checkpoint.py .
 RUN python download_checkpoint.py
 
