@@ -7,6 +7,13 @@ ARG MODEL_URL='https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/mai
 # access token (https://huggingface.co/settings/tokens) below:
 ARG HF_TOKEN=''
 
+# AWS Configuration
+ARG AWS_REGION=''
+ARG AWS_ACCESS_KEY=''
+ARG AWS_SECRET_ACCESS_KEY=''
+ARG BUCKET_NAME=''
+ARG CKPT_OBJECT_KEY=''
+
 RUN apt update && apt-get -y install git wget \
     ffmpeg libsm6 libxext6 \
     python3.10 python3.10-venv python3-pip \
@@ -25,6 +32,12 @@ WORKDIR /app/stable-diffusion-webui
 
 ENV MODEL_URL=${MODEL_URL}
 ENV HF_TOKEN=${HF_TOKEN}
+
+ENV AWS_REGION=${AWS_REGION}
+ENV AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
+ENV AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+ENV BUCKET_NAME=${BUCKET_NAME}
+ENV CKPT_OBJECT_KEY=${CKPT_OBJECT_KEY}
 
 RUN pip3 install --upgrade pip
 ADD requirements.txt requirements.txt
