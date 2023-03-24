@@ -28,7 +28,7 @@ RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git && \
     cd stable-diffusion-webui && \
     git checkout 3e0f9a75438fa815429b5530261bcf7d80f3f101 && \
     cd extensions && \
-    git clone https://github.com/Mikubill/sd-webui-controlnet.git \
+    git clone https://github.com/Mikubill/sd-webui-controlnet.git && \
     cd sd-webui-controlnet && \
     git checkout 3f5c272098ea5a32399dff72fd0160d2416e58c4
 WORKDIR /app/stable-diffusion-webui
