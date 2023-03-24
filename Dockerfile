@@ -13,6 +13,7 @@ ARG AWS_ACCESS_KEY=''
 ARG AWS_SECRET_ACCESS_KEY=''
 ARG BUCKET_NAME=''
 ARG CKPT_OBJECT_KEY=''
+ARG CONTROLNET_FOLDER=''
 
 RUN apt update && apt-get -y install git wget \
     ffmpeg libsm6 libxext6 \
@@ -27,7 +28,9 @@ RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git && \
     cd stable-diffusion-webui && \
     git checkout 3e0f9a75438fa815429b5530261bcf7d80f3f101 && \
     cd extensions && \
-    git clone https://github.com/Mikubill/sd-webui-controlnet.git
+    git clone https://github.com/Mikubill/sd-webui-controlnet.git \
+    cd sd-webui-controlnet && \
+    git checkout 3f5c272098ea5a32399dff72fd0160d2416e58c4
 WORKDIR /app/stable-diffusion-webui
 
 ENV MODEL_URL=${MODEL_URL}
@@ -38,6 +41,7 @@ ENV AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
 ENV AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
 ENV BUCKET_NAME=${BUCKET_NAME}
 ENV CKPT_OBJECT_KEY=${CKPT_OBJECT_KEY}
+ENV CONTROLNET_FOLDER=${CONTROLNET_FOLDER}
 
 RUN pip3 install --upgrade pip
 ADD requirements.txt requirements.txt
