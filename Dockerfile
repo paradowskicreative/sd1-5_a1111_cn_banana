@@ -26,7 +26,7 @@ WORKDIR /app
 
 RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git && \
     cd stable-diffusion-webui && \
-    git checkout 3e0f9a75438fa815429b5530261bcf7d80f3f101 && \
+    git checkout 58c4777cc0e2ef1c1ac76cbfbec6eab330de931a && \
     cd extensions && \
     git clone https://github.com/Mikubill/sd-webui-controlnet.git && \
     cd sd-webui-controlnet && \
@@ -66,4 +66,4 @@ ADD script.py extensions/banana/scripts/banana.py
 ADD app.py app.py
 ADD server.py server.py
 
-CMD ["python", "server.py", "--xformers", "--disable-safe-unpickle", "--lowram", "--allow-code", "--no-hashing", "--enable-insecure-extension-access", "--listen", "--port", "8000"]
+CMD ["python", "server.py", "--xformers", "--disable-safe-unpickle", "--lowram", "--allow-code", "--enable-insecure-extension-access",  "--no-hashing", "--listen", "--port", "8000"]
